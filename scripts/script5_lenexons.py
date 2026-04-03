@@ -41,7 +41,7 @@ def get_attribute(attrs, key):
             return attr[len(key)+1:]
     return ""
 
-def transform(input_file, output_file):
+def calculate_mean_len_exons_per_gene(input_file, output_file):
     """
     Lit un fichier GFF3 et calcule, pour chaque fenêtre de 500 kb,
     la longueur moyenne des exons.
@@ -138,13 +138,13 @@ def transform(input_file, output_file):
 
 def main():
     if len(sys.argv) != 3:
-        print("Usage : script7_len_exons.py input.gff3 output.txt")
+        print("Usage : script5_lenexons.py input.gff3 output.txt")
         sys.exit(1)
 
     input_file  = sc1.get_input_filename()
     output_file = sc1.get_output_filename()
 
-    transform(input_file, output_file)
+    calculate_mean_len_exons_per_gene(input_file, output_file)
 
 
 if __name__ == "__main__":
