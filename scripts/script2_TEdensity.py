@@ -20,7 +20,7 @@ Utilisation :
 python scripts/script2_TEdensity.py input.fasta output.txt
 
 Exemple :
-python scripts/script2_TEdensity.py data/Sbicolor_313_v3.0.hardmasked.fa config/TE_density.txt
+python scripts/script2_TEdensity.py data/Sbicolor_313_v3.0.hardmasked.fa results/TE_density.txt
 """
 
 import sys
