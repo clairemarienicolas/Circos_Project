@@ -24,7 +24,7 @@ python scripts/script2_TEdensity.py data/Sbicolor_313_v3.0.hardmasked.fa results
 """
 
 import sys
-import script1_chr as sc1
+import script1_chr as md
 
 def calculate_TE_density(input_file, output_file):
     """
@@ -36,51 +36,21 @@ def calculate_TE_density(input_file, output_file):
     - output_file : fichier texte tabulé en sortie
     """
 
-    chromosomes = {}
-    current_chr = None
     window_size = 100000
 
-    # Lecture du fichier FASTA
-    with open(input_file, "r") as fh:
-        for line in fh:
-            line = line.strip()
+    # Lecture du FASTA : md.parse_fasta_sequences retourne {chr_name: séquence}
+    chromosomes = md.parse_fasta_sequences(input_file)
 
-            # Si c'est un header FASTA
-            if line.startswith(">"):
-                header = line[1:].split()[0]
-
-                # on garde seulement les chromosomes
-                if header.startswith("Chr"):
-                    current_chr = header
-                    chromosomes[current_chr] = []
-                else:
-                    current_chr = None
-
-            # Si c'est une ligne de séquence
-            elif current_chr is not None:
-                chromosomes[current_chr].append(line)
-
-    # Écriture du fichier de sortie
     with open(output_file, "w") as out:
-        for chr_name in chromosomes:
-
-            sequence = "".join(chromosomes[chr_name])
-
+        for chr_name in sorted(chromosomes.keys()):
+            sequence   = chromosomes[chr_name]
             chr_length = len(sequence)
 
-            # découpage en fenêtres de 100 kb
-            for start in range(0, chr_length, window_size):
-                end = start + window_size
-                
-                # Si on dépasse la fin du chromosome, on s'arrête à la vraie longueur
-                if end > chr_length:
-                    end = chr_length
-
+            # Découpage en fenêtres : md.get_windows retourne [(start, end), ...]
+            for start, end in md.get_windows(chr_length, window_size):
                 window_seq = sequence[start:end]
-                n_count = window_seq.count("N")
-                #density = (n_count / window_size) * 100 #pour avoir un ratio entre 0 et 100 au lieu du nombre de bases si on veut avoir la densité
-                #out.write(f"{chr_name}\t{start + 1}\t{end}\t{density:.2f}\n") 
-                out.write(f"{chr_name}\t{start + 1}\t{end}\t{n_count}\n")  #start+1 car Circos commence à 1 et pas à 0 comme Python
+                n_count    = window_seq.count("N")
+                out.write(f"{chr_name}\t{start + 1}\t{end}\t{n_count}\n")
 
     print(f"Fichier {output_file} créé avec succès.")
 
@@ -89,8 +59,8 @@ def main():
         print("Usage : script2_TEdensity.py input_filename output_filename")
         sys.exit(1)
 
-    input_file = sc1.get_input_filename()
-    output_file = sc1.get_output_filename()
+    input_file = md.get_input_filename()
+    output_file = md.get_output_filename()
 
     calculate_TE_density(input_file, output_file)
 
