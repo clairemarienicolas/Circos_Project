@@ -38,7 +38,7 @@ def get_output_filename():
     return sys.argv[2]
 
 
-def transform(input_file, output_file):
+def read_fasta(input_file, output_file):
     """
     Lit un fichier FASTA et génère un fichier karyotype pour Circos.
 
@@ -90,13 +90,13 @@ def main():
     """Fonction principale qui gère les arguments et lance le traitement des données"""
 
     if len(sys.argv) != 3:
-        print("Usage : script1.py input_filename output_filename")
+        print("Usage : script1_chr.py input_filename output_filename")
         sys.exit(1)
 
     input_file = get_input_filename()
     output_file = get_output_filename()
 
-    transform(input_file, output_file)
+    read_fasta(input_file, output_file)
 
 
 if __name__ == "__main__":
