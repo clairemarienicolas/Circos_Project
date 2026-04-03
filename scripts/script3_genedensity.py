@@ -7,7 +7,7 @@ d'annotation GFF3. Il compte le nombre de gènes présents dans chaque fenêtre
 de taille fixe le long du génome.
 
 Le script :
-- lit le fichier GFF3
+- lit le fichier GFF3 (via md.parse_gff3_genes)
 - filtre uniquement les entités de type 'gene'
 - ignore les contigs et scaffolds pour ne garder que les chromosomes (ex: Chr01)
 - découpe chaque chromosome en fenêtres de 100 kb
@@ -26,7 +26,7 @@ python scripts/script3_genedensity.py data/Sbicolor_313_v3.1.gene_exons.gff3 res
 """
 
 import sys
-import script1_chr as sc1
+import script1_chr as md
 
 def calculate_gene_density(input_file, output_file):
     """
@@ -34,64 +34,41 @@ def calculate_gene_density(input_file, output_file):
     le nombre de gènes présents.
 
     Paramètres :
-    - input_file : fichier GFF3 en entrée
+    - input_file  : fichier GFF3 en entrée
     - output_file : fichier texte tabulé en sortie
     """
-    
-    gene_positions = {}
-    chr_lengths = {}
     window_size = 100000
 
-    # Lecture du GFF pour extraire les gènes
-    with open(input_file, 'r') as f:
-        for line in f:
-            if line.startswith('#') or not line.strip():
-                continue
-            
-            parts = line.split('\t')
-            # On filtre : type "gene" et seulement les chromosomes principaux (on ne prend pas en compte les contigs)
-            if parts[2] == "gene" and parts[0].startswith("Chr"):
-                chrom = parts[0]
-                start_gene = int(parts[3])
-                end_gene = int(parts[4])
-                
-                # On utilise le début du gène pour déterminer sa fenêtre
-                if chrom not in gene_positions:
-                    gene_positions[chrom] = []
-                gene_positions[chrom].append(start_gene)
-                
-                # On suit la longueur max pour définir la fin du chromosome
-                if chrom not in chr_lengths or end_gene > chr_lengths[chrom]:
-                    chr_lengths[chrom] = end_gene
+    # Lecture du GFF3 : md.parse_gff3_genes retourne :
+    #   gene_positions : {gene_id: (chrom, start)}
+    #   chr_lengths : {chrom: longueur_max}
+    gene_positions, chr_lengths = md.parse_gff3_genes(input_file)
 
-    # Calcul par fenêtre et écriture du fichier de sortie
     with open(output_file, 'w') as out:
-        for chrom in sorted(gene_positions.keys()):
-            positions = sorted(gene_positions[chrom])
-            max_len = chr_lengths[chrom]
-            
-            for start in range(0, max_len, window_size):
-                end = start + window_size
-                if end > max_len:
-                    end = max_len
-                
-                # Compte des gènes dans la fenêtre 
-                count = sum(1 for p in positions if start <= p < end)
-                
-                # Écriture adaptée à Circos (le start commence à 1)
+        for chrom in sorted(chr_lengths.keys()):
+
+            # Génération des fenêtres : md.get_windows retourne [(start, end), ...]
+            for start, end in md.get_windows(chr_lengths[chrom], window_size):
+
+                # Gènes dans la fenêtre : md.get_genes_in_window retourne une liste de gene_id
+                genes_in_window = md.get_genes_in_window(gene_positions, chrom, start, end)
+                count = len(genes_in_window)
+
                 out.write(f"{chrom}\t{start + 1}\t{end}\t{count}\n")
 
     print(f"Fichier {output_file} créé avec succès.")
+
 
 def main():
     if len(sys.argv) != 3:
         print("Usage : script3_genedensity.py input_filename output_filename")
         sys.exit(1)
 
-    input_file = sc1.get_input_filename()
-    output_file = sc1.get_output_filename()
+    input_file  = md.get_input_filename()
+    output_file = md.get_output_filename()
 
     calculate_gene_density(input_file, output_file)
+
 
 if __name__ == "__main__":
     main()
