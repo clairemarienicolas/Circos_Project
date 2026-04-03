@@ -3,17 +3,17 @@ Script : script1.py
 
 Description :
 Ce script permet de générer un fichier karyotype.txt à partir d’un fichier FASTA
-contenant un génome (ici le sorgho). Le fichier produit est compatible avec Circos.
+contenant un génome (ici le sorgho), qui est compatible avec une utilisation pour Circos.
 
 Le script :
 - lit le fichier FASTA
 - sélectionne uniquement les chromosomes (ex : Chr01, Chr02…)
-- ignore les contigs/non mappés
+- ignore les contigs
 - calcule la longueur de chaque chromosome
 - écrit un fichier karyotype au format Circos
 
 Format de sortie :
-chr - Chr01 Chr01 1 longueur couleur
+chr - Chr01 Chr01 début fin couleur
 
 Exemple :
 chr - Chr01 Chr01 1 80884392 88,114,107
@@ -87,7 +87,7 @@ def transform(input_file, output_file):
 
 
 def main():
-    """Fonction principale qui gère les arguments et lance le traitement"""
+    """Fonction principale qui gère les arguments et lance le traitement des données"""
 
     if len(sys.argv) != 3:
         print("Usage : script1.py input_filename output_filename")
