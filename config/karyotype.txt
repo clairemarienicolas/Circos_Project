@@ -1,0 +1,5 @@
+chr	-	Chr1	Chr1	1	15000000	blues-6-seq-5
+chr	-	Chr2	Chr2	1	15000000	blues-6-seq-5
+chr	-	Chr3	Chr3	1	15000000	blues-6-seq-5
+chr	-	Chr4	Chr4	1	15000000	blues-6-seq-5
+chr	-	Chr5	Chr5	1	15000000	102,255,178
