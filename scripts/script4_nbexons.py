@@ -7,7 +7,7 @@ Il calcule, pour chaque fenêtre de 500 kb le long du génome,
 le nombre moyen d'exons par gène.
 
 Le script :
-- lit le fichier GFF3
+- lit le fichier GFF3 (via md.parse_gff3_genes et md.parse_gff3_exons)
 - filtre uniquement les entités de type 'gene', 'mRNA' et 'exon'
 - ignore les contigs et scaffolds pour ne garder que les chromosomes (ex: Chr01)
 - associe chaque exon à son gène parent via les lignes mRNA

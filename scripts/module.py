@@ -77,8 +77,8 @@ def parse_gff3_genes(input_file):
     - chr_lengths : dict {chrom: longueur_max}
       Ex: {"Chr01": 80884392}
     """
-    gene_positions = {}  # {gene_id: (chrom, start)}
-    chr_lengths    = {}  # {chrom: position_max}
+    gene_positions = {} # {gene_id: (chrom, start)}
+    chr_lengths    = {} # {chrom: position_max}
 
     with open(input_file, 'r') as f:
         for line in f:
@@ -89,7 +89,7 @@ def parse_gff3_genes(input_file):
             if len(parts) < 9:
                 continue
 
-            # On ne garde que les chromosomes principaux
+            # On ne garde que les chromosomes et on exclus les contigs
             if not parts[0].startswith("Chr"):
                 continue
 
@@ -188,21 +188,24 @@ def parse_fasta_sequences(input_file):
     - chromosomes : dict {chr_name: séquence_complète}
       Ex: {"Chr01": "ATGCNNATGC..."}
     """
-    chromosomes  = {}
-    current_chr  = None
+    chromosomes  = {} # dictionnaire pour stocker les longueurs des chromosomes
+    current_chr  = None # variable pour savoir sur quel chromosome on est en train de lire
 
+    # ouverture du fichier FASTA
     with open(input_file, 'r') as fh:
         for line in fh:
             line = line.strip()
-
+            
+            # si la ligne commence par ">", c'est un header FASTA
             if line.startswith(">"):
-                header = line[1:].split()[0]
-                if header.startswith("Chr"):
+                header = line[1:].split()[0] # enlève ">" et garde le premier mot
+                if header.startswith("Chr"): # on garde uniquement les chromosomes (on exclut les contigs)
                     current_chr = header
                     chromosomes[current_chr] = []
                 else:
                     current_chr = None
 
+            # si c'est une ligne de séquence et qu'on est sur un chromosome
             elif current_chr is not None:
                 chromosomes[current_chr].append(line)
 
@@ -221,6 +224,7 @@ def read_fasta(input_file, output_file):
     couleur      = "88,114,107"
     chromosomes  = parse_fasta_sequences(input_file)
 
+    # écriture du fichier
     with open(output_file, "w") as out:
         for chr_name, sequence in chromosomes.items():
             out.write(f"chr\t-\t{chr_name}\t{chr_name}\t1\t{len(sequence)}\t{couleur}\n")
