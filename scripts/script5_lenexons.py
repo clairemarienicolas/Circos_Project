@@ -1,5 +1,5 @@
 """
-Script : script7_len_exons.py
+Script : script5_lenexons.py
 
 Description :
 Ce script génère un fichier de données à partir d'un fichier d'annotation GFF3.
@@ -20,10 +20,10 @@ Chr01    1       500000    312.45
 Chr01    500001  1000000   298.10
 
 Utilisation :
-python scripts/script7_len_exons.py input.gff3 output.txt
+python scripts/script5_lenexons.py input.gff3 output.txt
 
 Exemple :
-python scripts/script7_len_exons.py data/Sbicolor_313_v3.1.gene_exons.gff3 results/len_exons.txt
+python scripts/script5_lenexons.py data/Sbicolor_313_v3.1.gene_exons.gff3 results/len_exons.txt
 """
 
 import sys
