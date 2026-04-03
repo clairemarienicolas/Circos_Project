@@ -28,7 +28,7 @@ python scripts/script3_genedensity.py data/Sbicolor_313_v3.1.gene_exons.gff3 res
 import sys
 import script1_chr as sc1
 
-def transform(input_file, output_file):
+def calculate_gene_density(input_file, output_file):
     """
     Lit un fichier GFF3 et calcule, pour chaque fenêtre de 100 kb,
     le nombre de gènes présents.
@@ -91,7 +91,7 @@ def main():
     input_file = sc1.get_input_filename()
     output_file = sc1.get_output_filename()
 
-    transform(input_file, output_file)
+    calculate_gene_density(input_file, output_file)
 
 if __name__ == "__main__":
     main()
