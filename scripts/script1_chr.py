@@ -19,10 +19,10 @@ Exemple :
 chr - Chr01 Chr01 1 80884392 88,114,107
 
 Utilisation :
-python scripts/script1.py input.fasta output.txt
+python scripts/script1_chr.py input.fasta output.txt
 
 Exemple concret :
-python scripts/script1.py data/Sbicolor_313_v3.0.hardmasked.fa config/karyotype.txt
+python scripts/script1_chr.py data/Sbicolor_313_v3.0.hardmasked.fa results/karyotype.txt
 """
 
 import sys
