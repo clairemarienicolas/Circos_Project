@@ -6,7 +6,7 @@ Ce script génère un fichier de densité des répétitions à partir d’un fic
 FASTA hardmasked. Dans ce type de fichier, les bases masquées sont notées "N".
 
 Le script :
-- lit le fichier FASTA
+- lit le fichier FASTA (via md.parse_fasta_sequences)
 - garde uniquement les chromosomes (et pas les contigs)
 - découpe chaque chromosome en fenêtres de 100 kb
 - compte le nombre de "N" dans chaque fenêtre
