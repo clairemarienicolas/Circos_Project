@@ -21,7 +21,7 @@ chr - Chr01 Chr01 1 80884392 88,114,107
 Utilisation :
 python scripts/script1_chr.py input.fasta output.txt
 
-Exemple concret :
+Exemple :
 python scripts/script1_chr.py data/Sbicolor_313_v3.0.hardmasked.fa results/karyotype.txt
 """
 
