@@ -1,5 +1,5 @@
 """
-Script : script1.py
+Script : script1_chr.py
 
 Description :
 Ce script permet de générer un fichier karyotype.txt à partir d’un fichier FASTA
@@ -80,7 +80,7 @@ def transform(input_file, output_file):
     with open(output_file, "w") as out:
         for chr_name in chromosomes:
             out.write(
-                f"chr - {chr_name} {chr_name} 1 {chromosomes[chr_name]} {couleur}\n"
+                f"chr\t-\t{chr_name}\t{chr_name}\t1\t{chromosomes[chr_name]}\t{couleur}\n"
             )
 
     print(f"Fichier {output_file} créé avec succès.")
