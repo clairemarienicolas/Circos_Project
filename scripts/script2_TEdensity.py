@@ -17,7 +17,7 @@ Chr1    1       100000   10832
 Chr1    100001  200000   1683
 
 Utilisation :
-python scripts/density_N.py input.fasta output.txt
+python scripts/script2_TEdensity.py input.fasta output.txt
 
 Exemple :
 python scripts/script2_TEdensity.py data/Sbicolor_313_v3.0.hardmasked.fa config/TE_density.txt
@@ -26,7 +26,7 @@ python scripts/script2_TEdensity.py data/Sbicolor_313_v3.0.hardmasked.fa config/
 import sys
 import script1_chr as sc1
 
-def transform(input_file, output_file):
+def calculate_TE_density(input_file, output_file):
     """
     Lit un fichier FASTA hardmasked et calcule, pour chaque fenêtre de 100 kb,
     le nombre de N présents dans la séquence.
@@ -78,8 +78,9 @@ def transform(input_file, output_file):
 
                 window_seq = sequence[start:end]
                 n_count = window_seq.count("N")
-                density = n_count / window_size #pour avoir un ratio entre 0 et 1 au lieu du nombre de bases
-                out.write(f"{chr_name}\t{start + 1}\t{end}\t{density:.4f}\n") #start+1 car Circos commence à 1 et pas à 0 comme Python
+                #density = (n_count / window_size) * 100 #pour avoir un ratio entre 0 et 100 au lieu du nombre de bases si on veut avoir la densité
+                #out.write(f"{chr_name}\t{start + 1}\t{end}\t{density:.2f}\n") 
+                out.write(f"{chr_name}\t{start + 1}\t{end}\t{n_count}\n")  #start+1 car Circos commence à 1 et pas à 0 comme Python
 
     print(f"Fichier {output_file} créé avec succès.")
 
@@ -91,7 +92,7 @@ def main():
     input_file = sc1.get_input_filename()
     output_file = sc1.get_output_filename()
 
-    transform(input_file, output_file)
+    calculate_TE_density(input_file, output_file)
 
 
 if __name__ == "__main__":
