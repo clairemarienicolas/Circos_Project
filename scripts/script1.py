@@ -61,7 +61,7 @@ def transform(input_file, output_file):
         for line in fh:
             line = line.strip()
 
-            # si la ligne commence par ">" → header FASTA
+            # si la ligne commence par ">", c'est un header FASTA
             if line.startswith(">"):
                 header = line[1:].split()[0]  # enlève ">" et garde le premier mot
 
@@ -76,7 +76,7 @@ def transform(input_file, output_file):
             elif current_chr is not None:
                 chromosomes[current_chr] += len(line)
 
-    # écriture du fichier karyotype
+    # écriture du fichier
     with open(output_file, "w") as out:
         for chr_name in chromosomes:
             out.write(
