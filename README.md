@@ -141,8 +141,8 @@ Le fichier `circos.conf` est le seul fichier de configuration à modifier. Les a
 | 1 (le plus extérieur)| Heatmap | `TE_density.txt` | `orrd-9-seq` (blanc -> rouge) | Densité en éléments transposables |
 | 2 | Heatmap | `gene_density.txt` | `blues-9-seq` (blanc -> bleu) | Densité en gènes |
 | 3 | Histogramme | `nb_exons.txt` | Bleu acier | Nombre moyen d'exons par gène |
-| 4 | Histogramme | `len_exons.txt` | Bleu ciel | Longueur moyenne des exons |
-| 5 (le plus intérieur) | Rubans | `links.txt` | Rouge transparent | Blocs de synténie intra-génomique |
+| 4 (le plus intérieur) | Histogramme | `len_exons.txt` | Bleu ciel | Longueur moyenne des exons |
+| Région interne | Rubans | `links.txt` | Rouge transparent | Blocs de synténie intra-génomique |
 
 > Les palettes de couleurs utilisées (ColorBrewer `orrd`, `blues`) sont adaptées aux personnes daltoniennes.
 
