@@ -112,8 +112,8 @@ def main():
         print("Usage : python script5_syntenie.py <input> <output>")
         sys.exit(1)
     
-    input_file = sc1.get_input_filename()
-    output_file = sc1.get_output_filename()
+    input_file = md.get_input_filename()
+    output_file = md.get_output_filename()
     transform(input_file, output_file)
 
 if __name__ == "__main__":
