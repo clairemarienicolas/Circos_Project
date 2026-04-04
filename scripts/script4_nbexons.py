@@ -27,7 +27,7 @@ python scripts/script4_nbexons.py data/Sbicolor_313_v3.1.gene_exons.gff3 results
 """
 
 import sys
-import script1_chr as md
+import module as md
 
 def calculate_mean_nb_exons_per_gene(input_file, output_file):
     """

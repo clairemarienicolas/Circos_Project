@@ -27,7 +27,7 @@ python scripts/script5_lenexons.py data/Sbicolor_313_v3.1.gene_exons.gff3 result
 """
 
 import sys
-import script1_chr as md
+import module as md
 
 def calculate_mean_len_exons(input_file, output_file):
     """

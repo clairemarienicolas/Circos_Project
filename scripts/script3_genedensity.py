@@ -26,7 +26,7 @@ python scripts/script3_genedensity.py data/Sbicolor_313_v3.1.gene_exons.gff3 res
 """
 
 import sys
-import script1_chr as md
+import module as md
 
 def calculate_gene_density(input_file, output_file):
     """

@@ -24,7 +24,7 @@ python scripts/script2_TEdensity.py data/Sbicolor_313_v3.0.hardmasked.fa results
 """
 
 import sys
-import script1_chr as md
+import module as md
 
 def calculate_TE_density(input_file, output_file):
     """

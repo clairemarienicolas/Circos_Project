@@ -26,7 +26,7 @@ python scripts/script5_syntenie.py data/Sb_Sb.aligncoords.gcoords.txt results/li
 """
 
 import sys
-import script1_chr as sc1
+import module as md
 
 def format_chr_name(raw_name):
     """
