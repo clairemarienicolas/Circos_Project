@@ -78,7 +78,7 @@ def parse_gff3_genes(input_file):
       Ex: {"Chr01": 80884392}
     """
     gene_positions = {} # {gene_id: (chrom, start)}
-    chr_lengths    = {} # {chrom: position_max}
+    chr_lengths = {} # {chrom: position_max}
 
     with open(input_file, 'r') as f:
         for line in f:
@@ -93,11 +93,11 @@ def parse_gff3_genes(input_file):
             if not parts[0].startswith("Chr"):
                 continue
 
-            chrom     = parts[0]
+            chrom = parts[0]
             feat_type = parts[2]
-            start     = int(parts[3])
-            end       = int(parts[4])
-            attrs     = parts[8]
+            start = int(parts[3])
+            end = int(parts[4])
+            attrs = parts[8]
 
             # Mise à jour de la longueur du chromosome
             if chrom not in chr_lengths or end > chr_lengths[chrom]:
@@ -130,8 +130,8 @@ def parse_gff3_exons(input_file):
       Ex: {"Sobic.001G000100.v3.1": [205, 120, 85]}
     """
     transcript_to_gene = {}  # {transcript_id: gene_id}
-    gene_exon_count    = {}  # {gene_id: nombre d'exons}
-    gene_exon_lengths  = {}  # {gene_id: [longueurs des exons]}
+    gene_exon_count = {}  # {gene_id: nombre d'exons}
+    gene_exon_lengths = {}  # {gene_id: [longueurs des exons]}
 
     with open(input_file, 'r') as f:
         for line in f:
@@ -146,14 +146,14 @@ def parse_gff3_exons(input_file):
                 continue
 
             feat_type = parts[2]
-            start     = int(parts[3])
-            end       = int(parts[4])
-            attrs     = parts[8]
+            start = int(parts[3])
+            end = int(parts[4])
+            attrs = parts[8]
 
             # Les lignes mRNA permettent de relier transcrit -> gène
             if feat_type == "mRNA":
                 transcript_id = get_attribute(attrs, "ID")
-                gene_id       = get_attribute(attrs, "Parent")
+                gene_id = get_attribute(attrs, "Parent")
                 if transcript_id and gene_id:
                     transcript_to_gene[transcript_id] = gene_id
                     # Initialisation des compteurs si premier transcrit du gène
@@ -166,7 +166,7 @@ def parse_gff3_exons(input_file):
                 parent_transcript = get_attribute(attrs, "Parent")
                 gene_id = transcript_to_gene.get(parent_transcript, "")
                 if gene_id in gene_exon_count:
-                    gene_exon_count[gene_id]   += 1
+                    gene_exon_count[gene_id] += 1
                     gene_exon_lengths[gene_id].append(end - start + 1)
 
     return gene_exon_count, gene_exon_lengths
@@ -189,7 +189,7 @@ def parse_fasta_sequences(input_file):
       Ex: {"Chr01": "ATGCNNATGC..."}
     """
     chromosomes  = {} # dictionnaire pour stocker les longueurs des chromosomes
-    current_chr  = None # variable pour savoir sur quel chromosome on est en train de lire
+    current_chr = None # variable pour savoir sur quel chromosome on est en train de lire
 
     # ouverture du fichier FASTA
     with open(input_file, 'r') as fh:
@@ -221,8 +221,8 @@ def read_fasta(input_file, output_file):
     - input_file  : chemin vers le fichier FASTA
     - output_file : chemin vers le fichier karyotype à créer
     """
-    couleur      = "88,114,107"
-    chromosomes  = parse_fasta_sequences(input_file)
+    couleur = "100,149,237"
+    chromosomes = parse_fasta_sequences(input_file)
 
     # écriture du fichier
     with open(output_file, "w") as out:
