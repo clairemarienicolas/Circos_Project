@@ -14,7 +14,7 @@ module load python/3.9.5
 set -e
 
 echo "Génération du karyotype..."
-python3 scripts/script1_chr.py Sb_data/Sbicolor_313_v3.0.hardmasked.fa results/karyotype.txt
+python3 scripts/script1_chr.py Sb_data/Sbicolor_313_v3.0.fa results/karyotype.txt
 
 echo "Calcul de la densité des TE..."
 python3 scripts/script2_TEdensity.py Sb_data/Sbicolor_313_v3.0.hardmasked.fa results/TE_density.txt
