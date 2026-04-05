@@ -61,6 +61,10 @@ def calculate_mean_len_exons(input_file, output_file):
                     continue
 
                 # On rassemble toutes les longueurs d'exons des gènes de la fenêtre
+                # en une seule liste à plat : pour chaque gène de la fenêtre,
+                # on récupère sa liste de longueurs d'exons et on les ajoute toutes.
+                # Le "if g in gene_exon_lengths" évite une erreur si un gène
+                # n'a pas d'exons enregistrés (ex : gène sans transcrit dans le GFF3).
                 all_exon_lengths = [l for g in genes_in_window
                                     if g in gene_exon_lengths
                                     for l in gene_exon_lengths[g]]
@@ -76,7 +80,7 @@ def main():
         print("Usage : script5_lenexons.py input.gff3 output.txt")
         sys.exit(1)
 
-    input_file  = md.get_input_filename()
+    input_file = md.get_input_filename()
     output_file = md.get_output_filename()
 
     calculate_mean_len_exons(input_file, output_file)

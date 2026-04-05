@@ -43,14 +43,15 @@ def calculate_TE_density(input_file, output_file):
 
     with open(output_file, "w") as out:
         for chr_name in sorted(chromosomes.keys()):
-            sequence   = chromosomes[chr_name]
+            sequence = chromosomes[chr_name]
             chr_length = len(sequence)
 
             # Découpage en fenêtres : md.get_windows retourne [(start, end), ...]
             for start, end in md.get_windows(chr_length, window_size):
                 window_seq = sequence[start:end]
-                n_count    = window_seq.count("N")
-                out.write(f"{chr_name}\t{start + 1}\t{end}\t{n_count}\n")
+                n_count = window_seq.count("N")
+                density = (n_count/(end-start)) * 100
+                out.write(f"{chr_name}\t{start + 1}\t{end}\t{density:.2f}\n")
 
     print(f"Fichier {output_file} créé avec succès.")
 

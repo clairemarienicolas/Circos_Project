@@ -188,7 +188,7 @@ def parse_fasta_sequences(input_file):
     - chromosomes : dict {chr_name: séquence_complète}
       Ex: {"Chr01": "ATGCNNATGC..."}
     """
-    chromosomes  = {} # dictionnaire pour stocker les longueurs des chromosomes
+    chromosomes = {} # dictionnaire pour stocker les longueurs des chromosomes
     current_chr = None # variable pour savoir sur quel chromosome on est en train de lire
 
     # ouverture du fichier FASTA

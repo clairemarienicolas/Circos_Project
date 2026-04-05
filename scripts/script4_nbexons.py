@@ -75,7 +75,7 @@ def main():
         print("Usage : script4_nbexons.py input.gff3 output.txt")
         sys.exit(1)
 
-    input_file  = md.get_input_filename()
+    input_file = md.get_input_filename()
     output_file = md.get_output_filename()
 
     calculate_mean_nb_exons_per_gene(input_file, output_file)

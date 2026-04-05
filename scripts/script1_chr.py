@@ -36,7 +36,7 @@ def main():
         print("Usage : script1_chr.py input_filename output_filename")
         sys.exit(1)
 
-    input_file  = md.get_input_filename()
+    input_file = md.get_input_filename()
     output_file = md.get_output_filename()
 
     md.read_fasta(input_file, output_file)

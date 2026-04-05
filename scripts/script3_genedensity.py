@@ -64,7 +64,7 @@ def main():
         print("Usage : script3_genedensity.py input_filename output_filename")
         sys.exit(1)
 
-    input_file  = md.get_input_filename()
+    input_file = md.get_input_filename()
     output_file = md.get_output_filename()
 
     calculate_gene_density(input_file, output_file)
